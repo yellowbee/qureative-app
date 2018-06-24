@@ -1,0 +1,50 @@
+@import "globals";
+
+$font-color: #ffffff;
+$menu-selected-color: #f5a623;
+$menu-background: #143c6a;
+
+nav {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: $menu-background;
+
+    li {
+      float: left;
+
+      a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        font-size: $sm-font;
+      }
+
+      a:hover {
+        background-color: $menu-selected-color;
+        color: $font-color;
+        text-decoration: none;
+      }
+
+      img {
+        height: 50px;
+      }
+
+      div.circle {
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        background: #acddf9;
+        margin: 8px 40px 0 20px;
+      }
+    }
+  }
+
+  li.right {
+    float: right;
+  }
+}

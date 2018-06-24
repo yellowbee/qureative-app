@@ -1,0 +1,74 @@
+@import "globals";
+
+$font-color: #ffffff;
+$menu-selected-color: #f5a623;
+$bg-color: #143c6a;
+
+div#footer {
+  background-color: $bg-color;
+
+  div#top-half {
+    text-align: center;
+    border-bottom: 1px solid white;
+    padding-top: 50px;
+    padding-left: 35%;
+
+    ul {
+      width: 50%;
+      height: 250px;
+      list-style-type: none;
+      margin: 0;
+      overflow: hidden;
+
+      li {
+        .title {
+          font-size: $sm-font;
+        }
+
+        float: left;
+
+        a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 20px;
+          text-decoration: none;
+          font-size: $sm-font;
+        }
+      }
+    }
+  }
+  
+  div#bottom-half {
+    text-align: center;
+    padding-bottom: 60px;
+
+    div#footer-logo {
+      padding-top: 50px;
+      img {
+        height: 50px;
+      }
+    }
+    ul {
+      list-style-type: none;
+      width: 20%;
+      margin: 0 auto;
+      overflow: hidden;
+      li {
+        float: left;
+
+        a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding-top: 14px;
+          text-decoration: none;
+          font-size: $spsm-font;
+        }
+      }
+      li#contact {
+        margin-left: 18px;
+      }
+    }
+  }
+}

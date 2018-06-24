@@ -1,0 +1,174 @@
+@import "globals";
+
+$background-color: #42b3f4;
+$bg-color-two: #32a751;
+$bg-color-three: #fbbc05;
+$bg-color-four: #e94335;
+$btn-color: #f5a623;
+$font-color: #ffffff;
+
+div#tile-one {
+  background: $background-color;
+
+  div#left {
+    display: inline-block;
+    width: 50%;
+
+    div#input-container {
+      text-align: center;
+
+      div#title {
+        font-size: 36px;
+        color: $font-color;
+
+        input {
+          width: 100px;
+          background: transparent;
+          border: 0;
+          outline: 0;
+          border-bottom: 3px solid white;
+          font-size: 28px;
+          text-align: center;
+        }
+
+        input:focus {
+          outline: none;
+        }
+      }
+
+      div#desc {
+        margin-top: 20px;
+        color: $font-color;
+      }
+
+      div {
+        button {
+          color: $font-color;
+          background: $btn-color;
+          padding: 5px 30px;
+          margin-top: 50px;
+        }
+      }
+    }
+  }
+
+  div#right {
+    display: inline-block;
+    width: 50%;
+
+    img {
+      height: 300px;
+      margin: 90px 0 90px 0;
+    }
+  }
+}
+
+div#tile-two {
+  background: $bg-color-two;
+  text-align: center;
+  color: $font-color;
+
+  div#title {
+    padding-top: 90px;
+  }
+  div#desc {
+    padding-top: 20px;
+  }
+  div#image {
+    padding-bottom: 100px;
+    img {
+      width: 400px;
+    }
+  }
+}
+
+.col-left, .col-right {
+  display: inline-block;
+  width: 33%;
+}
+.col-mid {
+  display: inline-block;
+  width: 34%;
+}
+
+div#tile-three {
+  background: $bg-color-three;
+  text-align: center;
+  color: #000000;
+
+  div.col-left {
+    div#ll2 {
+      padding-top: 20px;
+    }
+
+    div.image {
+      padding-top: 30px;
+      img {
+        height: 150px;
+      }
+    }
+  }
+  div.col-mid {
+    display: inline-block;
+    width: 34%;
+    padding-top: 90px;
+    padding-bottom: 90px;
+
+    div#ml2 {
+      padding-top: 40px;
+    }
+    div#ml3 {
+      padding-top: 40px;
+    }
+
+    div.image {
+      padding-top: 40px;
+      img {
+        height: 150px;
+      }
+    }
+  }
+  div.col-right {
+    display: inline-block;
+    width: 33%;
+
+    div#rl2 {
+      padding-top: 30px;
+    }
+
+    div.image {
+      padding-top: 40px;
+      img {
+        width: 150px;
+      }
+    }
+  }
+}
+
+div#tile-four {
+  .circle {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    background: transparent;
+    border: 1px solid white;
+    margin: 8px 40px 0 20px;
+  }
+
+  background: $bg-color-four;
+  color: $font-color;
+  padding-top: 90px;
+  padding-bottom: 180px;
+
+  div {
+    text-align: center;
+    div.circle {
+      margin: 80px auto;
+    }
+
+    div.text {
+      position: relative;
+      top: 170px;
+    }
+  }
+}

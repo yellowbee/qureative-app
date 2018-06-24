@@ -1,0 +1,19 @@
+@import "../../globals";
+
+.project-title {
+  font-size: 1.5em;
+  margin-left: 5%;
+}
+
+.project-paragraph {
+  margin: 20px auto;
+  width: 90%;
+}
+
+.project-img {
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 90%;
+  }
+}

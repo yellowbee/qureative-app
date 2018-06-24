@@ -1,0 +1,108 @@
+@import 'globals';
+
+$hd-bg-color: #143c6a;
+$btn-color: #f5a623;
+
+div#login {
+  position: absolute; /* Sit on top of the page content */
+  width: 700px; /* Full width (cover the whole page) */
+  height: 650px; /* Full height (cover the whole page) */
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  top: 180px;
+  background-color: white;
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+
+  border-radius: 10px;
+
+  div#head {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: $hd-bg-color;
+    text-align: center;
+    font-size: $big-font;
+    color: white;
+    height: 60px;
+
+    div#hd-txt {
+      float: left;
+      padding-left: 300px;
+      padding-top: 15px;
+    }
+    div#close {
+      a {
+        color: white;
+        text-decoration: none;
+      }
+      float: right;
+      padding-top: 15px;
+      padding-right: 25px;
+    }
+  }
+
+  div#body {
+    text-align: center;
+    font-size: $spsm-font;
+    font-weight: 600;
+    color: $hd-bg-color;
+    border-bottom: 1px solid #e0e0e0;
+
+    div#login-bd-title {
+      margin: 30px auto 10px;
+    }
+
+    input {
+      width: 470px;
+      height: 45px;
+      margin: 15px;
+      font-size: $big-font;
+    }
+
+    button {
+      color: white;
+      background: $btn-color;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      width: 160px;
+      height: 40px;
+    }
+
+    button#btn-signup {
+      background: $color-lawn ;
+    }
+
+    div#back {
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
+
+    div#text-or {
+      position: relative;
+      top: -30px;
+      width: 50px;
+      margin: 0 auto;
+      background: white;
+    }
+
+    hr {
+      position: relative;
+      left: 20px;
+    }
+  }
+
+  div#foot {
+    text-align: center;
+    font-weight: 600;
+    color: $hd-bg-color;
+    div#login-foot-txt {
+      margin: 20px auto;
+    }
+
+    img {
+      height: 30px;
+      margin: 0 30px 30px 30px;
+    }
+  }
+}
