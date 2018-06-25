@@ -20,10 +20,9 @@ div.form-link {
     background-color: white;
 
     li {
+      margin: 0 100px;
       display: inline-block;
-      width: 30%;
       a {
-        width: 60%;
         position: relative;
         display: block;
         color: black;
@@ -48,5 +47,9 @@ div.form-link {
 
   li.right {
     float: right;
+  }
+
+  button.qform-btn {
+    @include simple-btn;
   }
 }

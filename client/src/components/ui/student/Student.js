@@ -29,7 +29,7 @@ class Student extends Component {
       if (token) {
           axios.get(`https://whenty-ws.herokuapp.com/api/user/renew/${token}`)
               .then((response) => {
-                  this.props.setToken(response.data.result);
+                  this.props.setToken(response.data);
               })
               .catch((err) => {
                 localStorage.removeItem("token");
@@ -58,7 +58,7 @@ class Student extends Component {
   }
 
   render() {
-    //console.log(this.props.state);
+    console.log(this.props.state);
     return (
       <div id="root-container" onClick={this.hideInnderDiv}>
         <Header />

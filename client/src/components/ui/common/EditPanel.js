@@ -41,7 +41,7 @@ class EditPanel extends Component {
      }
    ]
      */
-  uploadWidget(name, callback) {
+  uploadWidget() {
     cloudinary.openUploadWidget(
       { cloud_name: "qurimage",
           upload_preset: "my-preset",
@@ -49,10 +49,10 @@ class EditPanel extends Component {
           sources: ['local', 'url'],
           theme: 'minimal',
           stylesheet: '#cloudinary-overlay { background-color: rgba(10,10,10,.7) !important; }'},
-      function(error, result) {
-        console.log(result);
-        callback(name, 'image', result);
-      }
+          (error, result) => {
+          //console.log(result);
+            this.props.addImageBlock(result[0].public_id, result[0].secure_url);
+          }
     );
   }
 
@@ -64,7 +64,7 @@ class EditPanel extends Component {
           <div
             className="edit-btn"
             onClick={() => {
-              addTextBlock(name, "text");
+              addTextBlock();
             }}
           />
           <div>Text</div>
@@ -73,7 +73,7 @@ class EditPanel extends Component {
           <div
             className="edit-btn"
             onClick={() => {
-              this.uploadWidget(name, addImage);
+              this.uploadWidget();
             }}
           />
           <div>Image</div>

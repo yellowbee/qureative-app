@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import ProfileIcon from "./ProfileIcon";
 import { withRouter, Link } from "react-router-dom";
 import history from "../../../../src/browser";
@@ -23,60 +23,60 @@ import "../../../../css/common/QuestionCard.scss";
  * @returns {XML}
  * @constructor
  */
-const QuestionCard = ({
-  _id,
-  qImage,
-  tags,
-  location,
-  title,
-  profileImg,
-  userName,
-  hrLeftToAns,
-  numFollowees,
-  numFollowers,
-  price,
-  getQuestionDetail
-}) => {
-  return (
-    <div className="q-card">
-      <div className="q-img">
-        {/*<Link onClick={() => {
-                    getQuestionDetail();
-                    history.push('/request-pool/question-detail');
-                }}
-                   href="javascript:;">*/}
-        <Link to={`/question-pool/question-detail/${_id}`}>
-          <img src={qImage} />
-        </Link>
-        <div id="price">$ {price}</div>
-      </div>
-      <div className="q-info">
-        <div id="tag-loc">
-          {tags.map(tag => <span style={{ padding: "0 2px" }}>{tag}</span>)} |{" "}
-          {location}
-        </div>
-        <div id="title">{title}</div>
-        <div id="prof-name">
-          <ProfileIcon profileImg={profileImg} userName={userName} />
-        </div>
-        <div id="btn">
-          <button>Save</button>
-        </div>
-        <div id="time-follow">
-          <span>{hrLeftToAns} left to answer</span>
-          <span>{numFollowees} |</span>
-          <span>{numFollowers}</span>
-        </div>
-      </div>
-      <div style={{clear: "both"}}/>
-    </div>
-  );
-};
+class QuestionCard extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-let mapDispatchToProps = dispatch => ({
-  getQuestionDetail: () => {
-    dispatch(getQuestionDetail());
-  }
-});
+    render() {
+        let {_id,
+         qImage,
+         tags,
+         location,
+         title,
+         profileImg,
+         userName,
+         hrLeftToAns,
+         numFollowees,
+         numFollowers,
+         price,
+         getQuestionDetail } = this.props;
 
-export default connect(null, mapDispatchToProps)(QuestionCard);
+        return (
+            <div className="q-card">
+                <div className="q-img">
+                    {/*<Link onClick={() => {
+                     getQuestionDetail();
+                     history.push('/request-pool/question-detail');
+                     }}
+                     href="javascript:;">*/}
+                    <Link to={`/question-pool/question-detail/${_id}`}>
+                        <img src={qImage}/>
+                    </Link>
+                    <div id="price">$ {price}</div>
+                </div>
+                <div className="q-info">
+                    <div id="tag-loc">
+                        {tags.map(tag => <span style={{padding: "0 2px"}}>{tag}</span>)} |{" "}
+                        {location}
+                    </div>
+                    <div id="title">{title}</div>
+                    <div id="prof-name">
+                        <ProfileIcon profileImg={profileImg} userName={userName}/>
+                    </div>
+                    <div id="btn">
+                        <button>Save</button>
+                    </div>
+                    <div id="time-follow">
+                        <span>{hrLeftToAns} left to answer</span>
+                        <span>{numFollowees} |</span>
+                        <span>{numFollowers}</span>
+                    </div>
+                </div>
+                <div style={{clear: "both"}}/>
+            </div>
+        );
+    }
+}
+
+export default QuestionCard;

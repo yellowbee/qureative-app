@@ -41,11 +41,14 @@ class SimpleDropdownList extends Component {
                     id="qureative-dropdown-selected"
                     onClick={this.onClickSelected}
                 >
-                    {title || "Category"}
+                    {title}
                 </div>
                 <div className="select-dropdown" ref="dropdown" id="qureative-dropdown-list">
                     {itemList.map((item, i) => (
-                        <div className="select-item" onClick={this.hideDropdown}>{item}</div>
+                        <div className="select-item" onClick={() => {
+                            this.hideDropdown();
+                            this.props.setCategory(item);
+                        }}>{item}</div>
                     ))}
                 </div>
             </div>
