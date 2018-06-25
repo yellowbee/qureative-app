@@ -163,7 +163,8 @@ class FormQuestion extends Component {
                     question.data.location = "USA";
                     question.data.category = this.state.qDesc.category;
                     question.data.tags = this.state.qDesc.tags;
-                    question.data.userName = this.props.auth.fullName;
+                    question.data.userName = this.props.auth.userName;
+                    question.data.fullName = this.props.auth.fullName;
                     question.data.description = this.state.qDesc.qContent;
 
                     let qImage = null;

@@ -6,6 +6,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from 'axios';
 import ProfileProjects from './ProfileProjects';
+import QuestionCard from '../../common/QuestionCard';
 import '../../../../../css/profile/ProfileResources.scss';
 
 class ProfileResources extends Component {
@@ -19,6 +20,7 @@ class ProfileResources extends Component {
             }
         };
         this.getProjectsByUserName = this.getProjectsByUserName.bind(this);
+        this.getQuestionsByUserName = this.getQuestionsByUserName.bind(this);
     }
 
     getProjectsByUserName() {
@@ -32,6 +34,23 @@ class ProfileResources extends Component {
                 console.log("PROFILE RESPONSE");
                 console.log(response);
                 this.setState({ projects: response.data });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    getQuestionsByUserName() {
+        axios
+            .get(
+                `https://whenty-ws.herokuapp.com/api/questions/${
+                    this.props.auth.userName
+                    }`
+            )
+            .then(response => {
+                console.log("QUESTION RESPONSE");
+                console.log(response);
+                this.setState({ questions: response.data });
             })
             .catch(err => {
                 console.log(err);
@@ -52,6 +71,7 @@ class ProfileResources extends Component {
                     }}><a>Projects</a></li>
                     <li style={this.state.tabSelected.qaTab ? {borderBottom: "3px solid blue"} : null} onClick={() => {
                         this.setState({ tabSelected : { projectsTab: false, qaTab: true, reviewsTab: false }});
+                        this.getQuestionsByUserName();
                     }}><a>Q&A</a></li>
                     <li style={this.state.tabSelected.reviewsTab ? {borderBottom: "3px solid blue"} : null} onClick={() => {
                         this.setState({ tabSelected : { projectsTab: false, qaTab: false, reviewsTab: true }});
@@ -59,6 +79,9 @@ class ProfileResources extends Component {
                 </ul>
 
                 {this.state.tabSelected.projectsTab && <ProfileProjects projects={this.state.projects} />}
+                {this.state.tabSelected.qaTab && this.state.questions && this.state.questions.map(q =>
+                    <QuestionCard {...q} />
+                )}
             </div>
         )
     }

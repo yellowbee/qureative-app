@@ -35,7 +35,7 @@ class QuestionCard extends Component {
          location,
          title,
          profileImg,
-         userName,
+         fullName,
          hrLeftToAns,
          numFollowees,
          numFollowers,
@@ -62,7 +62,7 @@ class QuestionCard extends Component {
                     </div>
                     <div id="title">{title}</div>
                     <div id="prof-name">
-                        <ProfileIcon profileImg={profileImg} userName={userName}/>
+                        <ProfileIcon profileImg={profileImg} fullName={fullName}/>
                     </div>
                     <div id="btn">
                         <button>Save</button>
