@@ -6,7 +6,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from 'axios';
 import ProfileProjects from './ProfileProjects';
-import QuestionCard from '../../common/QuestionCard';
+import ProfileQaCard from './ProfileQaCard';
 import '../../../../../css/profile/ProfileResources.scss';
 
 class ProfileResources extends Component {
@@ -80,7 +80,9 @@ class ProfileResources extends Component {
 
                 {this.state.tabSelected.projectsTab && <ProfileProjects projects={this.state.projects} />}
                 {this.state.tabSelected.qaTab && this.state.questions && this.state.questions.map(q =>
-                    <QuestionCard {...q} />
+                    <div className="profile-qa-card-wrapper">
+                        <ProfileQaCard {...q} />
+                    </div>
                 )}
             </div>
         )

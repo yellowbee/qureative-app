@@ -38,6 +38,10 @@ $color-lawn: #32a751;
   color: white;
 }
 
+a {
+  text-decoration: none;
+}
+
 @font-face {
   font-family: 'localsans-mac-bold';
   src: local('PingFangSC-Semibold'), local('HiraginoSansGB-W6');

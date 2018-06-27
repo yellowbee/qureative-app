@@ -4,6 +4,8 @@
 
 import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 import rootReducer from '../reducers';
 
@@ -26,6 +28,13 @@ let rootReducer = combineReducers({
     login
 })*/
 
+const persistConfig = {
+    key: 'root',
+    storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
 /*
  * applyMiddleware takes a set of middleware functions and returns a function A that takes
  * a redux createstore function as its arg and A returns a function B which has the same
@@ -46,6 +55,6 @@ let rootReducer = combineReducers({
  *
  */
 const storeFactory = () =>
-    applyMiddleware(ReduxPromise)(createStore)(rootReducer);
+    applyMiddleware(ReduxPromise)(createStore)(persistedReducer);
 
 export default storeFactory

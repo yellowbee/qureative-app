@@ -15,10 +15,26 @@ import "../../../../../css/profile/Profile.scss";
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+    };
+
+      axios
+          .get(
+              `https://whenty-ws.herokuapp.com/api/profile/${
+                  this.props.auth.userName
+                  }`
+          )
+          .then(response => {
+              console.log("PROFILE RESPONSE");
+              console.log(response);
+              this.setState({profile: response.data.result });
+          })
+          .catch(err => {
+              console.log(err);
+          });
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     axios
       .get(
         `https://whenty-ws.herokuapp.com/api/profile/${
@@ -28,35 +44,35 @@ class Profile extends Component {
       .then(response => {
         console.log("PROFILE RESPONSE");
         console.log(response);
-        this.setState({ profile: response.data.result });
+        this.setState({loading: false, profile: response.data.result });
       })
       .catch(err => {
         console.log(err);
       });
-  }
+  }*/
 
   render() {
     return (
-      <div className="profile">
-        <div className="profile-wrap">
-          <div className="profile-button">
-            <NavLink to="/profile/edit-profile">
-              <button id="showcase-post">
-                <span>Edit Profile</span>
-              </button>
-            </NavLink>
-            <div className="clear-bar" style={{ clear: "both" }} />
-          </div>
+    <div className="profile">
+      <div className="profile-wrap">
+        <div className="profile-button">
+          <NavLink to="/profile/edit-profile">
+            <button id="showcase-post">
+              <span>Edit Profile</span>
+            </button>
+          </NavLink>
+          <div className="clear-bar" style={{clear: "both"}}/>
+        </div>
 
           <div className="profile-info">
-              <ProfileBasics profile={this.state.profile} />
-          </div>
-          <div className="profile-resource">
-            <ProfileResources/>
-          </div>
+          <ProfileBasics profile={this.state.profile}/>
+        </div>
+        <div className="profile-resource">
+          <ProfileResources/>
         </div>
       </div>
-    );
+    </div>
+  )
   }
 }
 

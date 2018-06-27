@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
     projectCards: projectCards,
     questions: questionCards,
     questionDetail: questionDetail,
-    formQuestion: formQuestion,
+    //formQuestion: formQuestion,
     formProject: formProject,
     auth: auth
 });
