@@ -36,11 +36,11 @@ class Project extends Component {
         this.state.projectDetail &&
         <div>
             <div className="project-title">{this.state.projectDetail.title}</div>
-            <div>{(this.state.projectDetail.description != null) && this.state.projectDetail.description.map((block) => {
+            <div>{(this.state.projectDetail.description != null) && this.state.projectDetail.description.map((block, i) => {
                 if (block.type === 'text') {
-                    return <div className="project-paragraph">{block.value}</div>
+                    return <div key={i} className="project-paragraph">{block.value}</div>
                 } else if (block.type === 'image') {
-                    return <div className="project-img"><img src={block.imgUrl} /></div>
+                    return <div key={i} className="project-img"><img src={block.imgUrl} /></div>
                 }
             })}
             </div>

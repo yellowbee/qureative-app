@@ -7,6 +7,7 @@ import QuestionCard from "../../../common/QuestionCard";
 import SearchBar from "../../../common/SearchBar";
 import DropDownFilter from "../../../common/DropDownFilter";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { getQuestions } from "../../../../../actions/action_question";
 import _ from "lodash";
 import "../../../../../../css/student/question/paidquestion/PaidRequestPool.scss";
@@ -66,8 +67,8 @@ class PaidRequestPool extends Component {
         <div id="qa-sched-container">
           <div id="cards-wrapper">{this.renderQuestionCards()}</div>
           <div id="qa-tool-sidebar">
+            <Link to={`/schedule`}><div className="qa-sidebar-tool">Schedule</div></Link>
             <div className="qa-sidebar-tool">Classroom</div>
-            <div className="qa-sidebar-tool">Schedule</div>
           </div>
         </div>
       </div>

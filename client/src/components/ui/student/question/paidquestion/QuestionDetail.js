@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ProfileIcon from '../../../common/ProfileIcon';
+import SessionProposal from '../../schedule/SessionProposal';
 import '../../../../../../css/student/question/paidquestion/QuestionDetail.scss';
 import {getQuestionDetail} from "../../../../../actions/action_questionDetail";
 
@@ -21,10 +22,10 @@ class QuestionDetail extends Component {
 
     render() {
         return (
-            <div id="question-detail">
+            <div className="question-detail">
                 <h2>{this.props.questionDetail.title}</h2>
                 <h4>{this.props.questionDetail.tags}</h4>
-                <ProfileIcon profileImg={this.props.questionDetail.profileImg} userName={this.props.questionDetail.userName}/>
+                <ProfileIcon profileImg={this.props.questionDetail.profileImg} fullName={this.props.questionDetail.fullName}/>
                 {/*<p>{this.props.questionDetail.description.split('\n').map((text) => (
                     <div>{text}</div>
                 ))}</p>*/}
@@ -32,18 +33,21 @@ class QuestionDetail extends Component {
                     if (block.type === 'text') {
                         return <div className="paragraph">{block.value}</div>
                     } else if (block.type === 'image') {
-                        return <img src={block.imgUrl} />
+                        return <div className="question-img"><img src={block.imgUrl} /></div>
                     }
                 })}
                 </div>
-                <img className="question-img" src={this.props.questionDetail.qImageBig}/>
                 <div id="solution"><h2>Tutor Solution</h2></div>
+                {this.props.auth.userName !== this.props.questionDetail.userName &&
+                    <SessionProposal qid={this.props.questionDetail._id} proposedTo={this.props.questionDetail.userName} />
+                }
             </div>
         )
     }
 };
 
 let mapStateToProps = (state) => ({
+    auth: state.auth,
     questionDetail: state.questionDetail
 });
 

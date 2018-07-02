@@ -15,7 +15,7 @@ class ProfileProjects extends Component {
         return (
             <div id="profile-myprofile-container">
                 <div className="cardWrapper">
-                    { projects && projects.map(proj => <TutorProjCard {...proj} />)}
+                    { projects && projects.map((proj, i) => <TutorProjCard key={i} {...proj} />)}
                 </div>
             </div>
         )

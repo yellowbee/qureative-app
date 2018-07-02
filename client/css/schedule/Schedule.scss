@@ -1,0 +1,20 @@
+@import "../globals";
+
+div.schedule-bg {
+  width: 100%;
+  height: 100%;
+  padding: 50px 0;
+  background-color: #f6f6f6;
+
+  div.schedule-panel {
+    width: 1000px;
+    min-height: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 50px 30px;
+
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+  }
+}

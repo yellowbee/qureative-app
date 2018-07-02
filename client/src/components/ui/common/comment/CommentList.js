@@ -54,7 +54,9 @@ class CommentList extends Component {
           <div className="commentlist-container">
               <div>Comments({ this.state.projectDetail != null && this.state.projectDetail.comments != null && this.state.projectDetail.comments.length })</div>
               <div className="commentlist-list">
-                  {this.state.projectDetail != null && this.state.projectDetail.comments != null && this.state.projectDetail.comments.map(comment => <Comment comment={comment}/>)}
+                  {this.state.projectDetail != null &&
+                  this.state.projectDetail.comments != null &&
+                  this.state.projectDetail.comments.map((comment, i) => <Comment key={i} comment={comment}/>)}
               </div>
               <div className="commentlist-new">
                   <div>

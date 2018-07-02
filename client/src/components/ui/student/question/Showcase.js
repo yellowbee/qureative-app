@@ -34,10 +34,10 @@ class Showcase extends Component {
                     <button id="showcase-post" onClick={this.handlePostQuestion}>
                         <span>Post a Project</span>
                     </button>
-                    <div class="clear-bar" style={{clear: "both"}}/>
+                    <div className="clear-bar" style={{clear: "both"}}/>
                 </div>
                 <div className="cardWrapper">
-                    {this.props.projectCards.map(proj => <TutorProjCard {...proj} />)}
+                    {this.props.projectCards.map((proj, i) => <TutorProjCard key={i} {...proj} />)}
                 </div>
             </div>
             </div>

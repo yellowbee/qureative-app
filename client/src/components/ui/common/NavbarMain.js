@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import { getProjects } from "../../../actions/action_project";
 import PaidRequestPool from '../student/question/paidquestion/PaidRequestPool';
 import QuestionDetail from '../student/question/paidquestion/QuestionDetail';
+import Schedule from '../student/schedule/Schedule';
 import Project from '../student/project/Project';
 import "../../../../css/common/NavbarMain.scss";
 
@@ -69,6 +70,7 @@ class NavbarMain extends Component {
           <Route path="/profile" component={Profile} />
 
           <Route path="/question-pool/question-detail/:id" component={QuestionDetail} />
+          <Route path="/schedule" component={Schedule} />
           <Route path="/project-detail/:id" component={Project} />
           <Route exact path="/question-pool" component={PaidRequestPool} />
         </Switch>
