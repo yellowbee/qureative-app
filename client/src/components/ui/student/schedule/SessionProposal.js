@@ -13,7 +13,7 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import TimeOption from "./TimeOption";
 import _ from "lodash";
-import { URL_ROOT } from "../../../../../src/actions/constants";
+import { API_ROOT_URL } from "../../../../../src/constants";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../../../../qureative-ui/css/textarea.scss";
 import "../../../../../qureative-ui/css/input-text.scss";
@@ -174,7 +174,7 @@ class SessionProposal extends Component {
               };
               axios
                 //.post(`${URL_ROOT}/schedule`, payload)
-                .post(`http://localhost:3000/api/schedule`, payload)
+                .post(`${API_ROOT_URL}/api/proposal`, payload)
                 .then(response => {
                   console.log(response);
                   this.setState({

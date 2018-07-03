@@ -2,11 +2,12 @@
 
 $border-radius: 10px;
 
-div.sessioncard {
+div.proposalcard {
+  position: relative;
   //display: inline-block;
-  height: 150px;
-  width: 350px;
+  width: 80%;
   padding: 20px;
+  margin: 40px auto;
   border: 1px solid #eeeeee;
   border-radius: $border-radius;
   background-color: #fefefe;
@@ -40,6 +41,20 @@ div.sessioncard {
     }
     div#time-follow {
       padding-left: 5px;
+    }
+  }
+
+  div.proposal-desc {
+    padding: 20px 0;
+  }
+
+  div.proposal-btns {
+    position: absolute;
+    right: 50px;
+
+    button.proposal-btn {
+      @include simple-btn;
+      margin: 0 10px;
     }
   }
 }

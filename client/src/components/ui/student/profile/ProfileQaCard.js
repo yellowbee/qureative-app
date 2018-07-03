@@ -11,10 +11,6 @@ class ProfileQaCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      radioGroup: {
-        a: false,
-        b: false
-      }
     };
   }
 
@@ -54,33 +50,6 @@ class ProfileQaCard extends Component {
             </div>
           </div>
         </a>
-
-        <div className="radio-group">
-          <div className="radio-item">
-            <div
-              className="halo"
-              onClick={() => {
-                this.setState({ radioGroup: { a: true, b: false } });
-              }}
-            >
-              {this.state.radioGroup.a && <div className="sun" />}
-            </div>
-            <div className="radio-label">to be</div>
-          </div>
-
-          <div className="radio-item">
-            <div
-                className="halo"
-                onClick={() => {
-                    this.setState({ radioGroup: { a: false, b: true } });
-                }}
-            >
-                {this.state.radioGroup.b && <div className="sun" />}
-            </div>
-            <div className="radio-label">not to be</div>
-          </div>
-
-        </div>
       </div>
     );
   }
