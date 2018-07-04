@@ -1,5 +1,6 @@
 @import "../globals";
 
+
 div.schedule-bg {
   width: 100%;
   height: 100%;
@@ -7,7 +8,7 @@ div.schedule-bg {
   background-color: #f6f6f6;
 
   div.schedule-panel {
-    width: 1000px;
+    width: 1200px;
     min-height: 500px;
     margin: 0 auto;
     background-color: white;
@@ -16,5 +17,21 @@ div.schedule-bg {
     border: 1px solid #eeeeee;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+
+    span.dingbats {
+      font-family: 'Zapf Dingbats';
+    }
+
+    div.schedule-filters {
+      div.schedule-filter {
+        display: inline-block;
+        vertical-align: top;
+      }
+    }
+
+    div.schedule-cards {
+      width: 1000px;
+      margin: 20px auto;
+    }
   }
 }

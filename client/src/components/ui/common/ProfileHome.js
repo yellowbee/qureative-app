@@ -19,12 +19,9 @@ class ProfileHome extends Component {
     this.refs["dropdown"].className = "select-dropdown hide";
   }
 
-  onClickSelected() {
-    if (this.refs["dropdown"].className == "select-dropdown hide") {
-      this.refs["dropdown"].className = "select-dropdown show";
-    } else {
-      this.refs["dropdown"].className = "select-dropdown hide";
-    }
+  onClickSelected(e) {
+      e.target.nextSibling.classList.toggle("show");
+      e.target.nextSibling.classList.toggle("hide");
   }
 
   hideDropdown() {

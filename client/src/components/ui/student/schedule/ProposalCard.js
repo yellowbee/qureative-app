@@ -5,6 +5,7 @@
  * Created by bhuang on 6/26/18.
  */
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import "../../../../../css/schedule/ProposalCard.scss";
 import "../../../../../qureative-ui/css/radio-group.scss";
@@ -41,6 +42,8 @@ class ProposalCard extends Component {
       <div className="proposalcard">
           <div>By {proposedBy}</div>
           <div>To {proposedTo}</div>
+          <Link to={`/question-pool/question-detail/${ qid }`}>Link to the question</Link>
+          <span style={{backgroundColor: '#e3b5fc', padding: '5px 10px', borderRadius: '10px'}}>{ status }</span>
           <div className="proposal-desc">{description}</div>
 
           <div className="radio-group">
