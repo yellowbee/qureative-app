@@ -58,6 +58,7 @@ class Filter extends Component {
                 let itemToggle = this.state.itemToggle;
                 itemToggle[i] = !itemToggle[i];
                 this.setState(itemToggle);
+                this.props.updateFilterTags(item, itemToggle[i]);
                 e.stopPropagation();
               }}
             >
