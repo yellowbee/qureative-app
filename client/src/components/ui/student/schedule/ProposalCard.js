@@ -30,6 +30,7 @@ class ProposalCard extends Component {
 
   render() {
     let {
+        _id,
       status,
       qid,
       proposedBy,
@@ -40,35 +41,56 @@ class ProposalCard extends Component {
 
     return (
       <div className="proposalcard">
-          <div>By {proposedBy}</div>
-          <div>To {proposedTo}</div>
-          <Link to={`/question-pool/question-detail/${ qid }`}>Link to the question</Link>
-          <span style={{backgroundColor: '#e3b5fc', padding: '5px 10px', borderRadius: '10px'}}>{ status }</span>
-          <div className="proposal-desc">{description}</div>
+        <div>By {proposedBy}</div>
+        <div>To {proposedTo}</div>
+        <Link to={`/question-pool/question-detail/${qid}`}>
+          Link to the question
+        </Link>
+          { status == 'PENDING' &&
+            <span className="proposal-pending">
+            {status}
+            </span>
+          }
+          { status == 'rejected' &&
+          <span className="proposal-rejected">
+            {status}
+            </span>
+          }
+        <div className="proposal-desc">{description}</div>
 
-          <div className="radio-group">
-            {timeOptions.map((option, i) => (
-              <div className="radio-item">
-                <div
-                  className="halo"
-                  onClick={() => {
-                    this.radioCallback(i);
-                  }}
-                >
-                  {this.state.radioGroup[i] && <div className="sun" />}
-                </div>
-                <div className="radio-label" style={{ fontSize: '0.8em'}}>
-                  <span>{moment(option.startTime).format("YYYY/MM/DD")} &nbsp;&nbsp;</span>
-                    <span>{moment(option.startTime).format("LT")} - </span>
-                  <span>{moment(option.endTime).format("LT")}</span>
-                </div>
+        <div className="radio-group">
+          {timeOptions.map((option, i) => (
+            <div className="radio-item">
+              <div
+                className="halo"
+                onClick={() => {
+                  this.radioCallback(i);
+                }}
+              >
+                {this.state.radioGroup[i] && <div className="sun" />}
               </div>
-            ))}
-          </div>
-          <div className="proposal-btns">
-        <button className="proposal-btn" style={{backgroundColor: 'white', color: 'gray'}}>Not interested</button>
-        <button className="proposal-btn">Hire</button>
-          </div>
+              <div className="radio-label" style={{ fontSize: "0.8em" }}>
+                <span>
+                  {moment(option.startTime).format("YYYY/MM/DD")} &nbsp;&nbsp;
+                </span>
+                <span>{moment(option.startTime).format("LT")} - </span>
+                <span>{moment(option.endTime).format("LT")}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="proposal-btns">
+          <button
+            className="proposal-btn"
+            style={{ backgroundColor: "white", color: "gray" }}
+            onClick={() => {
+                this.props.openDialog(_id, false);
+            }}
+          >
+            Not interested
+          </button>
+          <button className="proposal-btn">Hire</button>
+        </div>
       </div>
     );
   }
