@@ -46,29 +46,37 @@ class ProposalCard extends Component {
         <Link to={`/question-pool/question-detail/${qid}`}>
           Link to the question
         </Link>
-          { status == 'PENDING' &&
-            <span className="proposal-pending">
+          { status == 'pending' &&
+            <span className="proposal-status proposal-pending">
             {status}
             </span>
           }
           { status == 'rejected' &&
-          <span className="proposal-rejected">
+          <span className="proposal-status proposal-rejected">
             {status}
             </span>
           }
+          { status == 'accepted' &&
+          <span className="proposal-status proposal-accepted">
+            {status}
+            </span>
+          }
+
         <div className="proposal-desc">{description}</div>
 
         <div className="radio-group">
           {timeOptions.map((option, i) => (
             <div className="radio-item">
-              <div
-                className="halo"
-                onClick={() => {
-                  this.radioCallback(i);
-                }}
-              >
-                {this.state.radioGroup[i] && <div className="sun" />}
-              </div>
+                { status !== 'rejected' && status !== 'accepted' &&
+                    <div
+                        className="halo"
+                        onClick={() => {
+                            this.radioCallback(i);
+                        }}
+                    >
+                        {this.state.radioGroup[i] && <div className="sun"/>}
+                    </div>
+                }
               <div className="radio-label" style={{ fontSize: "0.8em" }}>
                 <span>
                   {moment(option.startTime).format("YYYY/MM/DD")} &nbsp;&nbsp;
@@ -79,18 +87,26 @@ class ProposalCard extends Component {
             </div>
           ))}
         </div>
-        <div className="proposal-btns">
-          <button
-            className="proposal-btn"
-            style={{ backgroundColor: "white", color: "gray" }}
-            onClick={() => {
-                this.props.openDialog(_id, false);
-            }}
-          >
-            Not interested
-          </button>
-          <button className="proposal-btn">Hire</button>
-        </div>
+          { status !== 'rejected' && status !== 'accepted' &&
+              <div className="proposal-btns">
+                  <button
+                      className="proposal-btn"
+                      style={{backgroundColor: "white", color: "gray"}}
+                      onClick={() => {
+                          this.props.openDialog(_id, false);
+                      }}
+                  >
+                      Not interested
+                  </button>
+                  <button className="proposal-btn"
+                          onClick={() => {
+                              this.props.openDialog(_id, true);
+                          }}
+                  >
+                      Hire
+                  </button>
+              </div>
+          }
       </div>
     );
   }

@@ -27,6 +27,7 @@ class Schedule extends Component {
     this.updateStatusTags = this.updateStatusTags.bind(this);
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
+    this.updateProposal = this.updateProposal.bind(this);
   }
 
   getToProposals() {
@@ -88,6 +89,20 @@ class Schedule extends Component {
     this.setState({ showDialog: false, onSchedule: {} });
   }
 
+  updateProposal() {
+      let status = this.state.onSchedule.accept ? 'accepted' : 'rejected';
+      axios
+          .put(`${API_ROOT_URL}/api/proposal?pid=${this.state.onSchedule.pid}&status=${status}`)
+          .then(response => {
+              this.getProposals();
+              this.closeDialog();
+          })
+          .catch(err => {
+              console.log(err);
+              this.closeDialog();
+          });
+  }
+
   componentDidMount() {
     //this.getToProposals();
     this.getProposals();
@@ -111,7 +126,7 @@ class Schedule extends Component {
             <div className="schedule-filter">
               <Filter
                 title={"Status"}
-                itemList={["pending", "accpeted", "rejected", "completed"]}
+                itemList={["pending", "accepted", "rejected", "completed"]}
                 updateFilterTags={this.updateStatusTags}
               />
             </div>
@@ -169,7 +184,7 @@ class Schedule extends Component {
               left: "50%",
               borderRadius: "10px",
               width: "350px",
-              height: "500px",
+              height: "200px",
               right: "auto",
               bottom: "auto",
               marginRight: "-50%",
@@ -177,19 +192,30 @@ class Schedule extends Component {
             }
           }}
         >
-          <div>
-              {this.state.onSchedule && !this.state.onSchedule.accept &&
-                <h1>Click OK to reject proposal</h1>
-              }
-            <button
-              onClick={() => {
-                this.setState({onSchedule: {}});
-                this.closeDialog();
-              }}
-            >
-              Cancel
-            </button>
-            <button>OK</button>
+          <div className="schedule-dialog">
+            {this.state.onSchedule &&
+              !this.state.onSchedule.accept && (
+                <h5 className="schedule-label">Click OK to reject proposal</h5>
+              )}
+              {this.state.onSchedule &&
+               this.state.onSchedule.accept && (
+                  <h5 className="schedule-label">Click OK to accept proposal</h5>
+              )}
+            <div className="schedule-btns">
+              <button className="schedule-btn"
+                onClick={() => {
+                  this.setState({ onSchedule: {} });
+                  this.closeDialog();
+                }}
+              >
+                Cancel
+              </button>
+              <button className="schedule-btn alert"
+                      onClick={this.updateProposal}
+              >
+                OK
+              </button>
+            </div>
           </div>
         </ReactModal>
       </div>

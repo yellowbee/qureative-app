@@ -43,15 +43,19 @@ div.proposalcard {
     }
   }
 
-  span.proposal-pending {
+  span.proposal-status {
+    color: white;
     padding: 5px 10px;
     border-radius: 10px;
+  }
+  span.proposal-pending {
     background-color: #e6b5fc;
   }
   span.proposal-rejected {
-    padding: 5px 10px;
-    border-radius: 10px;
     background-color: red;
+  }
+  span.proposal-accepted {
+    background-color: green;
   }
 
   div.proposal-desc {

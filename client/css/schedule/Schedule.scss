@@ -35,3 +35,30 @@ div.schedule-bg {
     }
   }
 }
+
+div.schedule-dialog {
+  h5.schedule-label {
+    width: 300px;
+    margin: 20px auto;
+    text-align: center;
+  }
+  width: 100%;
+  margin: 20px auto;
+
+  div.schedule-btns {
+    margin: 0 auto;
+    button.schedule-btn {
+      @include simple-btn;
+      width: 140px;
+      margin: 0 5px;
+    }
+    button.alert {
+      background-color: red;
+      color: white;
+    }
+    button.confirm {
+      background-color: green;
+      color: white;
+    }
+  }
+}
