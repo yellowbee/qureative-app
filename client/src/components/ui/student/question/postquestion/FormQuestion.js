@@ -11,7 +11,7 @@ import axios from "axios";
 import _ from 'lodash';
 import FormQuestionDesc from "./FormQuestionDesc";
 import FormTest from "./FormTest";
-import { URL_ROOT } from "../../../../../../src/actions/constants";
+import { API_ROOT_URL } from "../../../../../../src/constants";
 import "../../../../../../css/student/question/postquestion/FormQuestion.scss";
 
 class FormQuestion extends Component {
@@ -79,7 +79,7 @@ class FormQuestion extends Component {
   }
 
   deleteImageBlock(id, publicId) {
-          axios.delete(`${URL_ROOT}/image/${publicId}`).then(() => {
+          axios.delete(`${API_ROOT_URL}/api/image/${publicId}`).then(() => {
               let curQ = this.state.qDesc;
               let qContent = this.state.qDesc.qContent.filter(block => block.id !== id);
               this.setState({qDesc: {...curQ, qContent}});
@@ -185,7 +185,7 @@ class FormQuestion extends Component {
                     //    );
                     //});
                     axios
-                        .post(`${URL_ROOT}/question`, question)
+                        .post(`${API_ROOT_URL}/api/question`, question)
                         .then(response => {
                             console.log(response);
                             this.props.history.push(

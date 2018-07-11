@@ -37,7 +37,7 @@ class Showcase extends Component {
                     <div className="clear-bar" style={{clear: "both"}}/>
                 </div>
                 <div className="cardWrapper">
-                    {this.props.projectCards.map((proj, i) => <TutorProjCard key={i} {...proj} />)}
+                    {this.props.projectCards.map((proj, i) => <div className="card-project"><TutorProjCard key={i} {...proj} /></div>)}
                 </div>
             </div>
             </div>

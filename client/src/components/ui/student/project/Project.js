@@ -4,50 +4,77 @@
  */
 
 import React, { Component } from "react";
-import axios from 'axios';
+import axios from "axios";
 import CommentList from "../../common/comment/CommentList";
-import { URL_ROOT } from "../../../../actions/constants";
+import { API_ROOT_URL } from "../../../../../src/constants";
 import "../../../../../css/student/project/Project.scss";
 
 class Project extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            projectDetail: null
-        };
-        this.getProjectDetail = this.getProjectDetail.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      project: null
+    };
+    this.getProjectDetail = this.getProjectDetail.bind(this);
+  }
 
-    getProjectDetail(id) {
-        axios.get(`${URL_ROOT}/project-detail/${id}`)
-            .then((response) => {
-                console.log(response);
-                this.setState({projectDetail: response.data});
-            })
-    }
+  getProjectDetail(id) {
+    axios
+      .get(`${API_ROOT_URL}/api/project-detail/${id}`)
+      .then(response => {
+        console.log(response);
+        this.setState({ project: response.data });
+      });
+  }
 
-    componentDidMount() {
-        this.getProjectDetail(this.props.match.params.id);
-    }
+  componentDidMount() {
+    this.getProjectDetail(this.props.match.params.id);
+  }
 
-    render() {
-
-        return (
-        this.state.projectDetail &&
+  render() {
+    let { project } = this.state;
+    return (
+      <div>
+          { project &&
         <div>
-            <div className="project-title">{this.state.projectDetail.title}</div>
-            <div>{(this.state.projectDetail.description != null) && this.state.projectDetail.description.map((block, i) => {
-                if (block.type === 'text') {
-                    return <div key={i} className="project-paragraph">{block.value}</div>
-                } else if (block.type === 'image') {
-                    return <div key={i} className="project-img"><img src={block.imgUrl} /></div>
+          <div className="project-title">{project.title}</div>
+          {project &&
+            project.postedBy &&
+            project.postedBy.basicInfo && (
+              <div className="project-profileicon">
+                <img
+                  className="avatar"
+                  src={project.postedBy.basicInfo.profileIcon.imgUrl}
+                />
+                <div className="project-fullname">
+                  {project.postedBy.basicInfo.fullName}
+                </div>
+              </div>
+            )}
+          <div>
+            {project &&
+              project.description &&
+              project.description.map((block, i) => {
+                if (block.type === "text") {
+                  return (
+                    <div key={i} className="project-paragraph">
+                      {block.value}
+                    </div>
+                  );
+                } else if (block.type === "image") {
+                  return (
+                    <div key={i} className="project-img">
+                      <img src={block.imgUrl} />
+                    </div>
+                  );
                 }
-            })}
-            </div>
-            <CommentList projId={this.state.projectDetail._id} />
-        </div>
-        );
-    }
+              })}
+          </div>
+          <CommentList projId={project._id} />
+        </div> }
+      </div>
+    );
+  }
 }
 
 export default Project;

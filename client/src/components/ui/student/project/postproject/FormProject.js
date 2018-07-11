@@ -2,35 +2,106 @@
  * Created by bhuang on 4/27/18.
  */
 import React, { Component } from "react";
-import Image from "../../../../../../qureative-ui/src/ui/Image";
-import TextArea from "../../../../../../qureative-ui/src/ui/TextArea";
 import { connect } from "react-redux";
-import DropdownList from "../../../../../../qureative-ui/src/ui/DropdownList";
-import InputText from "../../../../../../qureative-ui/src/ui/InputText";
-import EditPanel from "../../../common/EditPanel";
-import TagGroup from "../../../common/TagGroup";
+import uuidv1 from "uuid/v1";
+import _ from "lodash";
+import axios from "axios";
+import { API_ROOT_URL } from "../../../../../../src/constants";
+import FormProjectDesc from "./FormProjectDesc";
 import "../../../../../../css/student/project/postproject/FormProject.scss";
-
-import {
-  setProjectCategories,
-  setProjectName,
-  addProjectImage,
-  deleteProjectImage,
-  addProjectTextBlock,
-  deleteProjectTextBlock,
-  setProjectTextBlockText,
-  postProject
-} from "../../../../../actions/action_project_form";
-
-import { getCategoryItems } from "../../question/postquestion/form-question-desc-config";
 
 class FormProject extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
+
+    this.setCategory = this.setCategory.bind(this);
+    this.setQuestionTitle = this.setQuestionTitle.bind(this);
+    this.addTextBlock = this.addTextBlock.bind(this);
+    this.deleteTextBlock = this.deleteTextBlock.bind(this);
+    this.updateTextBlock = this.updateTextBlock.bind(this);
+    this.addImageBlock = this.addImageBlock.bind(this);
+    this.deleteImageBlock = this.deleteImageBlock.bind(this);
+    this.addTag = this.addTag.bind(this);
+    this.deleteTag = this.deleteTag.bind(this);
+    this.validator = this.validator.bind(this);
+  }
+
+  setCategory(category) {
+    this.setState({ category });
+  }
+
+  setQuestionTitle(title) {
+    this.setState({ title });
+  }
+
+  addTextBlock() {
+    let content = this.state.content ? this.state.content : [];
+    content.push({ id: uuidv1(), type: "text" });
+    this.setState({ content });
+  }
+
+  deleteTextBlock(id) {
+    let content = this.state.content.filter(block => block.id !== id);
+    this.setState({ content });
+  }
+
+  updateTextBlock(id, value) {
+    let content = this.state.content.map(block => {
+      if (block.id === id) {
+        block.value = value;
+      }
+      return block;
+    });
+    this.setState({ content });
+  }
+
+  addImageBlock(publicId, imgUrl) {
+    let content = this.state.content ? this.state.content : [];
+    content.push({ id: uuidv1(), type: "image", imgUrl, publicId });
+    this.setState({ content });
+  }
+
+  deleteImageBlock(id, publicId) {
+    axios.delete(`${API_ROOT_URL}/api/image/${publicId}`).then(() => {
+      let content = this.state.content.filter(block => block.id !== id);
+      this.setState({ content });
+    });
+  }
+
+  addTag(tag) {
+    if (_.isEmpty(tag)) return;
+
+    let tags = this.state.tags ? this.state.tags : [];
+    tags.push(tag.trim());
+    this.setState({ tags });
+  }
+
+  deleteTag(value) {
+    let tags = this.state.tags.filter(tag => tag !== value);
+    this.setState({ tags });
+  }
+
+  validator() {
+    let errors = {};
+    if (!this.state.category) {
+      errors.category = "Choose a Category";
+    }
+    if (!this.state.title) {
+      errors.title = "Give your question a title";
+    }
+    if (_.isEmpty(this.state.content)) {
+      errors.content = "Add at least one block of text";
+    }
+    if (_.isEmpty(this.state.tags)) {
+      errors.tags = "Add at least one tag";
+    }
+
+    return errors;
   }
 
   render() {
-    let {
+    /*let {
       formProject,
       setProjectCategories,
       setProjectName,
@@ -42,135 +113,80 @@ class FormProject extends Component {
       postProject
     } = this.props;
 
-    let itemList = getCategoryItems(formProject, setProjectCategories);
-
-    console.log(formProject);
-
+    let itemList = getCategoryItems(formProject, setProjectCategories);*/
+    console.log(this.state);
     return (
       <form
-        id="form-proj"
+        className="formproject"
         onSubmit={e => {
           e.preventDefault();
-          let project = { data: {} };
-          project.data.title = formProject.pname;
-          project.data.description = formProject.pDesc;
-          project.data.categories = formProject.categories;
-          postProject(project, response => {
+
+          let errors = this.validator();
+          if (_.isEmpty(errors)) {
+            console.log("Form data validation passed: " + errors);
+            let project = { data: {} };
+            project.data.title = this.state.title;
+            project.data.category = this.state.category;
+            project.data.tags = this.state.tags;
+            project.data.userName = this.props.auth.userName;
+            project.data.description = this.state.content;
+
+            let qImage = null;
+            for (let i = 0; i < this.state.content.length; i++) {
+              if (this.state.content[i].type === "image") {
+                qImage = this.state.content[i].imgUrl;
+                break;
+              }
+            }
+            project.data.pImage = qImage
+              ? qImage
+              : "/images/graphic-design.png";
+
+            axios
+              .post(`${API_ROOT_URL}/api/project`, project)
+              .then(response => {
+                console.log(response);
+                this.props.history.push(
+                  "/project-detail/" + response.data.result
+                );
+              });
+          } else {
+            console.log("Form data validation failed: " + errors);
+            this.setState({ errors });
+          }
+
+          /*postProject(project, response => {
             //console.log(response);
             this.props.history.push(
               "/project-detail/" + response.data.result
             );
-          });
+          });*/
         }}
       >
-        <div id="project-form-title">Post a Project</div>
-        <div id="form-content">
-          <div className="form-field">
-            <h4 className="field-title">Creative Category</h4>
-            <DropdownList value={formProject.categories} itemList={itemList} />
-          </div>
+        <FormProjectDesc
+          pDesc={this.state}
+          errors={this.state.errors}
+          setCategory={this.setCategory}
+          setQuestionTitle={this.setQuestionTitle}
+          addTextBlock={this.addTextBlock}
+          deleteTextBlock={this.deleteTextBlock}
+          updateTextBlock={this.updateTextBlock}
+          addImageBlock={this.addImageBlock}
+          deleteImageBlock={this.deleteImageBlock}
+          addTag={this.addTag}
+          deleteTag={this.deleteTag}
+        />
 
-          <div className="form-field">
-            <h4 className="field-title">Project Name</h4>
-            <div className="qname-wrapper">
-              <InputText
-                type="text"
-                placeholder="eg: a Rhino 4d problem need to be solved"
-                name="pname"
-                textValue={formProject.pname || ""}
-                changeText={setProjectName}
-              />
-            </div>
-          </div>
-
-          {formProject.pDesc &&
-            formProject.pDesc.map((block, i) => {
-              console.log(block);
-              if (block.type === "text") {
-                return (
-                  <TextArea
-                    name="pDesc"
-                    key={block.id}
-                    id={block.id}
-                    value={block.value}
-                    placeholder={block.type}
-                    deleteTextBlock={deleteProjectTextBlock}
-                    setTextBlockText={setProjectTextBlockText}
-                  />
-                );
-              } else if (block.type === "image") {
-                return (
-                  <Image
-                    key={block.id}
-                    name="pDesc"
-                    publicId={block.id}
-                    imgUrl={block.imgUrl}
-                    deleteImage={deleteProjectImage}
-                  />
-                );
-              }
-            })}
-
-          <div className="panel">
-            <div className="panel-container">
-              <EditPanel
-                name="pDesc"
-                addTextBlock={addProjectTextBlock}
-                addImage={addProjectImage}
-              />
-            </div>
-          </div>
-
-          <div className="form-field">
-            <h4 className="field-title">Add Tags</h4>
-            <TagGroup
-              name="qTags"
-              formQuestion={{ qtags: ["art", "design"] }}
-              addTag={null}
-              deleteTag={null}
-            />
-          </div>
-        </div>
-
-        <div id="form-proj-buttons">
-          <button type="submit" className="qbutton">
-            Submit
-          </button>
-        </div>
+        <button className="qform-btn" type="submit">
+          <span>Submit</span>
+        </button>
       </form>
     );
   }
 }
 
 let mapStateToProps = state => ({
-  formProject: state.formProject
+  auth: state.auth
 });
 
-let mapDispatchToProps = dispatch => ({
-  setProjectCategories: (name, value) => {
-    dispatch(setProjectCategories(name, value));
-  },
-  setProjectName: (name, value) => {
-    dispatch(setProjectName(name, value));
-  },
-  addProjectTextBlock: (name, blockType) => {
-    dispatch(addProjectTextBlock(name, blockType));
-  },
-  deleteProjectTextBlock: (name, id) => {
-    dispatch(deleteProjectTextBlock(name, id));
-  },
-  setProjectTextBlockText: (name, id, value) => {
-    dispatch(setProjectTextBlockText(name, id, value));
-  },
-  addProjectImage: (name, itemType, uploadResult) => {
-    dispatch(addProjectImage(name, itemType, uploadResult));
-  },
-  deleteProjectImage: (name, public_id) => {
-    dispatch(deleteProjectImage(name, public_id));
-  },
-    postProject: (project, callback) => {
-        dispatch(postProject(project, callback));
-    }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FormProject);
+export default connect(mapStateToProps, null)(FormProject);

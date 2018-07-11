@@ -65,6 +65,19 @@ button:focus {
   display: none;
 }
 
+span.x-btn {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: top;
+  margin-left: 20px;
+  color: red;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 @mixin logo {
   font-size: 28px;
   color: $theme-color;

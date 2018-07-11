@@ -1,7 +1,7 @@
 @import "../../../globals";
 
-form {
-  width: 80%;
+div.formproject-desc {
+  width: 90%;
   margin: 0 auto;
   background-color: white;
   border-radius: 5px;
@@ -42,6 +42,19 @@ form {
 
   button.qdesc-btn {
     @include simple-btn;
+  }
+
+  span.x-btn {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: top;
+    margin-left: 20px;
+    color: red;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   div.qDesc-tags {
