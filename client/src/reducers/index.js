@@ -11,7 +11,6 @@ import auth from './reducer_auth';
  * @type {Reducer<any>}
  */
 const rootReducer = combineReducers({
-    projectCards: projectCards,
     questions: questionCards,
     auth: auth
 });

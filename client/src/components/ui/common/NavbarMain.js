@@ -12,7 +12,6 @@ import Profile from '../student/profile/Profile';
 import EditProfile from "../student/profile/EditProfile";
 //import TutorProjectPool from '../student/tutorproject/TutorProjectPool'
 import { connect } from "react-redux";
-import { getProjects } from "../../../actions/action_project";
 import PaidRequestPool from '../student/question/paidquestion/PaidRequestPool';
 import QuestionDetail from '../student/question/paidquestion/QuestionDetail';
 import Schedule from '../student/schedule/Schedule';
@@ -27,19 +26,11 @@ class NavbarMain extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.onGetProjects();
-  }
-
   render() {
     return (
       <div className="link">
         <ul id="level-1">
-          <li
-            onClick={() => {
-              this.props.onGetProjects();
-            }}
-          >
+          <li>
             <NavLink activeClassName="selected" exact to="/">
               <div>Showcase</div>
                 {/*<div className="arrow-up" />*/}
@@ -83,11 +74,5 @@ let mapStateToProps = state => ({
     auth: state.auth
 });
 
-let mapDispatchToProps = dispatch => ({
-  onGetProjects: () => {
-    dispatch(getProjects());
-  }
-});
-
 // withRouter is needed if component is wrapped in connect
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavbarMain));
+export default withRouter(connect(mapStateToProps, null)(NavbarMain));

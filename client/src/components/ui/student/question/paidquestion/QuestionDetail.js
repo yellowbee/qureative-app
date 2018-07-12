@@ -28,7 +28,7 @@ class QuestionDetail extends Component {
             .then((response) => {
                 console.log(response);
                 this.setState({question: response.data});
-            })
+            });
     }
 
     render() {
