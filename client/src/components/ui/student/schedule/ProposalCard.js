@@ -5,6 +5,7 @@
  * Created by bhuang on 6/26/18.
  */
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import moment from "moment";
 import "../../../../../css/schedule/ProposalCard.scss";
@@ -87,7 +88,8 @@ class ProposalCard extends Component {
             </div>
           ))}
         </div>
-          { status !== 'rejected' && status !== 'accepted' &&
+          {/* if proposal is in permanent status OR user is the author of the proposal, don't show buttons */}
+          { status !== 'rejected' && status !== 'accepted' && (proposedBy !== this.props.auth.userName) &&
               <div className="proposal-btns">
                   <button
                       className="proposal-btn"
@@ -112,4 +114,8 @@ class ProposalCard extends Component {
   }
 }
 
-export default ProposalCard;
+let mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps, null)(ProposalCard);

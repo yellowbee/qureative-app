@@ -165,7 +165,7 @@ class SessionProposal extends Component {
             this.setState({ errors });
             if (_.isEmpty(errors)) {
               let payload = {
-                status: "PENDING",
+                status: "pending",
                 qid: this.props.qid,
                 proposedBy: this.props.auth.userName,
                 proposedTo: this.props.proposedTo,
